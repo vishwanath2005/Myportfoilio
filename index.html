@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Thakur Vishwanath Singh - Portfolio</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                display: flex;
+                background-color: #f5f5f5;
+            }
+
+            /* Side Navbar */
+            .sidebar {
+                width: 250px;
+                height: 100vh;
+                background-color: #2c3e50;
+                color: white;
+                position: fixed;
+                padding: 20px 0;
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+
+            .sidebar.collapsed {
+                width: 70px;
+            }
+
+            .toggle-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: #34495e;
+                color: white;
+                border: none;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+            }
+
+            .sidebar .profile {
+                text-align: center;
+                padding: 20px 0;
+                border-bottom: 1px solid #4a6278;
+                transition: all 0.3s ease;
+            }
+
+            .sidebar .profile img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid #fff;
+                transition: all 0.3s ease;
+            }
+
+            .sidebar.collapsed .profile img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .sidebar .profile h2 {
+                margin-top: 10px;
+                font-size: 1.2rem;
+                transition: opacity 0.3s ease;
+            }
+
+            .sidebar .profile p {
+                font-size: 0.8rem;
+                color: #ecf0f1;
+                margin-top: 5px;
+                transition: opacity 0.3s ease;
+            }
+
+            .sidebar.collapsed .profile h2,
+            .sidebar.collapsed .profile p {
+                opacity: 0;
+                height: 0;
+                margin: 0;
+                padding: 0;
+            }
+
+            .sidebar .nav-links {
+                padding: 20px 0;
+            }
+
+            .sidebar .nav-links ul {
+                list-style: none;
+            }
+
+            .sidebar .nav-links ul li {
+                padding: 10px 20px;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+            }
+
+            .sidebar .nav-links ul li:hover {
+                background-color: #34495e;
+                cursor: pointer;
+            }
+
+            .sidebar .nav-links ul li i {
+                margin-right: 15px;
+                font-size: 18px;
+                min-width: 20px;
+                text-align: center;
+            }
+
+            .sidebar.collapsed .nav-links ul li span {
+                opacity: 0;
+                display: none;
+            }
+
+            .sidebar .nav-links ul li a {
+                color: white;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 1rem;
+                width: 100%;
+            }
+
+            .sidebar .social-links {
+                position: absolute;
+                bottom: 20px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                transition: all 0.3s ease;
+            }
+
+            .sidebar .contact-links {
+                position: absolute;
+                bottom: 80px;
+                width: 100%;
+                display: flex;
+                text-align: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .sidebar .social-links a {
+                color: white;
+                font-size: 22px;
+                transition: all 0.3s ease;
+            }
+
+            .sidebar .social-links a:hover {
+                color: #3498db;
+            }
+
+            .sidebar.collapsed .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            /* Main Content */
+            .main-content {
+                margin-left: 250px;
+                width: calc(100% - 250px);
+                padding: 20px;
+                transition: all 0.3s ease;
+            }
+
+            .main-content.expanded {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+            }
+
+            section {
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+                margin-bottom: 30px;
+            }
+
+            h1.section-title {
+                font-size: 2rem;
+                margin-bottom: 20px;
+                color: #2c3e50;
+                border-bottom: 2px solid #3498db;
+                padding-bottom: 10px;
+            }
+
+            /* Welcome Section */
+            #welcome {
+                display: flex;
+                align-items: center;
+                background: linear-gradient(135deg, #3498db, #2c3e50);
+                color: white;
+            }
+
+            #welcome .content {
+                flex: 2;
+                padding-right: 40px;
+            }
+
+            #welcome .image {
+                flex: 1;
+                text-align: center;
+            }
+
+            #welcome .image img {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 5px solid white;
+            }
+
+            #welcome h1 {
+                font-size: 3rem;
+                margin-bottom: 15px;
+                border-bottom: none;
+            }
+
+            #welcome p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+
+            /* Skills Section */
+            .skills-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .skill-category {
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .skill-category h3 {
+                background-color: #3498db;
+                color: white;
+                padding: 10px 15px;
+                margin: 0;
+            }
+
+            .skill-items {
+                padding: 15px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .skill-item {
+                display: flex;
+                align-items: center;
+                background-color: #f5f5f5;
+                padding: 5px 10px;
+                border-radius: 5px;
+                margin-bottom: 5px;
+                flex: 1 0 100px;
+            }
+
+            .skill-item img {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+
+            /* Projects Section */
+            .projects-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+            }
+
+            .project-card {
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                overflow: hidden;
+                transition: transform 0.3s ease;
+            }
+
+            .project-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .project-card img {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+            }
+
+            .project-info {
+                padding: 15px;
+            }
+
+            .project-info h3 {
+                margin-bottom: 10px;
+                color: #2c3e50;
+            }
+
+            .project-info p {
+                color: #7f8c8d;
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+
+            .tech-stack {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                margin-top: 10px;
+            }
+
+            .tech-tag {
+                background-color: #ecf0f1;
+                color: #2c3e50;
+                padding: 3px 8px;
+                border-radius: 3px;
+                font-size: 0.8rem;
+            }
+
+            /* Certifications Section */
+            .certifications-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .certification-card {
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .certification-card img {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+            }
+
+            .certification-info {
+                padding: 15px;
+            }
+
+            .certification-info h3 {
+                font-size: 1rem;
+                margin-bottom: 5px;
+                color: #2c3e50;
+            }
+
+            .certification-info p {
+                color: #7f8c8d;
+                font-size: 0.9rem;
+            }
+
+            /* Experience Section */
+            .experience-item {
+                border-left: 3px solid #3498db;
+                padding-left: 20px;
+                margin-bottom: 30px;
+                position: relative;
+            }
+
+            .experience-item:before {
+                content: "";
+                position: absolute;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background-color: #3498db;
+                left: -9px;
+                top: 0;
+            }
+
+            .experience-item h3 {
+                color: #2c3e50;
+                margin-bottom: 5px;
+            }
+
+            .experience-item .company {
+                font-weight: bold;
+                color: #3498db;
+            }
+
+            .experience-item .period {
+                color: #7f8c8d;
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+
+            .experience-content {
+                display: flex;
+                gap: 20px;
+            }
+
+            .experience-description {
+                flex: 2;
+            }
+
+            .experience-image {
+                flex: 1;
+                max-width: 200px;
+            }
+
+            .experience-image img {
+                width: 100%;
+                border-radius: 5px;
+            }
+
+            /* Competitions Section */
+            .competitions-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+            }
+
+            .competition-card {
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                overflow: hidden;
+                padding: 15px;
+            }
+
+            .competition-card h3 {
+                color: #2c3e50;
+                margin-bottom: 10px;
+            }
+
+            .competition-card p {
+                color: #7f8c8d;
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+
+            .competition-card img {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 5px;
+                margin-top: 10px;
+            }
+
+            .dbtn {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: white;
+                color: #3498db;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+            /* Footer */
+            footer {
+                text-align: center;
+                padding: 20px;
+                background-color: #2c3e50;
+                color: white;
+                margin-top: 50px;
+                border-radius: 10px;
+            }
+
+            @media (max-width: 768px) {
+                body {
+                    flex-direction: column;
+                }
+
+                .sidebar {
+                    width: 100%;
+                    height: auto;
+                    position: relative;
+                    padding-bottom: 60px;
+                }
+
+                .sidebar.collapsed {
+                    width: 100%;
+                    height: 60px;
+                    overflow: hidden;
+                }
+
+                .toggle-btn {
+                    top: 15px;
+                    right: 15px;
+                }
+
+                .main-content,
+                .main-content.expanded {
+                    margin-left: 0;
+                    width: 100%;
+                }
+
+                #welcome {
+                    flex-direction: column;
+                }
+
+                #welcome .content {
+                    padding-right: 0;
+                    margin-bottom: 20px;
+                }
+
+                .experience-content {
+                    flex-direction: column;
+                }
+
+                .experience-image {
+                    max-width: 100%;
+                }
+
+                .sidebar .social-links {
+                    position: relative;
+                    padding-top: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Side Navbar -->
+        <div class="sidebar" id="sidebar">
+            <button class="toggle-btn" id="toggleBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="profile">
+                <img src="MYPIC.jpg" alt="Profile Picture" />
+                <h2>Thakur Vishwanath Singh</h2>
+                <p>Data Analyst</p>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li>
+                        <a href="#welcome"
+                            ><i class="fas fa-home"></i><span>Welcome</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#skills"
+                            ><i class="fas fa-code"></i
+                            ><span>Skills & Technologies</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#projects"
+                            ><i class="fas fa-project-diagram"></i
+                            ><span>Projects</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#certifications"
+                            ><i class="fas fa-certificate"></i
+                            ><span>Certifications</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#experience"
+                            ><i class="fas fa-briefcase"></i
+                            ><span>Summer Training</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#competitions"
+                            ><i class="fas fa-trophy"></i
+                            ><span>Competitions</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#contact"
+                            ><i class="fas fa-envelope"></i
+                            ><span>Contact</span></a
+                        >
+                    </li>
+                </ul>
+            </div>
+            <div class="social-links">
+                <a href="mailto:thakurvishwanathsingh04@gmail.com">
+                    <i class="fas fa-envelope"></i>
+                </a>                
+                <a href="tel:+917995074639">
+                    <i class="fas fa-phone"></i>
+                </a>                
+                <a href="https://www.linkedin.com/in/vishwanath04/" target="_blank"
+                    ><i class="fab fa-linkedin"></i
+                ></a>
+                <a href="https://github.com/vishwanath2005" target="_blank"
+                    ><i class="fab fa-github"></i
+                ></a>
+                <a href="https://www.instagram.com/thakur_vishwanathsingh_04" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>                
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Welcome Section -->
+            <section id="welcome">
+                <div class="content">
+                    <h1>Hi, I'm Thakur Vishwanath Singh</h1>
+                    <p>
+                        <p>
+                            I’m a B.Tech Computer Science student with a strong interest in data analysis and problem-solving
+                            I have hands-on experience with Python (Pandas, NumPy), SQL, R programming, and C++.
+                            I also work with Java and have built projects using data visualization tools like Power BI, Tableau, and Matplotlib.
+                            My focus lies in transforming raw data into meaningful insights to support data-driven decisions.
+                        </p>                        
+                    </p>
+                    <p>
+                        I’m passionate about uncovering insights from data and transforming raw information <br>
+                        into actionable strategies. I continuously enhance my skills in statistical analysis, <br>
+                        data storytelling, and modern tools for effective decision-making.
+                    </p>
+                    <a class="dbtn" href="Vishu(cv).pdf"> Download CV </a>
+                </div>
+                <div class="image">
+                    <img src="MYPIC.jpg" alt="Thakur Vishwanath Singh" />
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills">
+                <h1 class="section-title">Skills & Technologies</h1>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <img src="logos/python.svg" alt="Python" />
+                                <span>Python</span>
+                            </div>
+                            <div class="skill-item">
+                                <img src="java.jpg" alt="Java" />
+                                <span>Java</span>
+                            </div>
+                            <div class="skill-item">
+                                <img src="c++logo.png" alt="c++" />
+                                <span>C++</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Backend Development</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <img src="logos/flask.svg" alt="Node.js" />
+                                <span>Flask</span>
+                            </div>
+                            <div class="skill-item">
+                                <img src="logos/fastapi.svg" alt="Node.js" />
+                                <span>FastAPI</span>
+                            </div>
+                            <div class="skill-item">
+                                <img src="logos/go.svg" alt="Node.js" />
+                                <span>Gin</span>
+                            </div>
+                            <div class="skill-item">
+                                <img src="logos/json.svg" alt="Node.js" />
+                                <span>JSON</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Data Science</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <img src="Tableau-Logo.png" alt="Tableau" />
+                                <span>Tableau</span>
+                            </div>
+                            <div class="skill-item">
+                                <img
+                                    src="RStudio_logo_flat.svg.png"
+                                    alt="Rstudio"
+                                />
+                                <span>R Studio</span>
+                            </div>
+                            <div class="skill-item">
+                                <img
+                                    src="powerbi.png"
+                                    alt="powerbi"
+                                />
+                                <span>Power BI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Databases</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <img src="Mysql.png" alt="SQL" />
+                                <span>My SQL</span>
+                            </div>
+                            <div class="skill-item">
+                                <img
+                                    src="logos/postgresql.svg"
+                                    alt="PostgreSQL"
+                                />
+                                <span>PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects">
+                <h1 class="section-title">Projects</h1>
+                <div class="projects-container">
+                    <div class="project-card">
+                        <img src="Diseasechecker.jpg" alt="MediScan AI" />
+                        <div class="project-info">
+                            <a
+                                href="https://github.com/vishwanath2005/DiseaseChecker"
+                                target="_blank"
+                            >
+                                <h3>MediScan-AI</h3>
+                            </a>
+                            <p>
+                                Developed a deep learning-based medical imaging solution using 
+                                <strong>Convolutional Neural Networks (CNNs)</strong> for early diagnosis of diseases such as 
+                                <strong>cancer</strong> and <strong>tuberculosis</strong>. The system was optimized for 
+                                <em>low-resource environments</em> using lightweight model architectures like 
+                                <strong>MobileNet</strong>, ensuring global accessibility.
+                              </p>
+                              <p>
+                                Deployed via a <strong>Streamlit</strong> web application to enable real-time 
+                                <em>inference on X-ray and MRI scans</em>, offering instant diagnostic feedback through a 
+                                user-friendly interface.
+                              </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Streamlit</span>
+                                <span class="tech-tag">CNNs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <img src="customerchurnprediction.png" alt="AI Project" />
+                        <div class="project-info">
+                            <a
+                                href="https://github.com/vishwanath2005/Customer-Churn-Prediction-using-XGboost.git"
+                                target="_blank"
+                            >
+                                <h3>Customer Churn-prediction Model</h3>
+                            </a>
+                            <p>
+                                Built a machine learning model using <strong>XGBoost (Extreme Gradient Boosting)</strong> to predict 
+                                customer churn based on historical usage data, demographics, and behavioral patterns.
+                              </p>
+                              <p>
+                                Performed extensive <strong>feature engineering</strong>, handled class imbalance with techniques like 
+                                <strong>SMOTE</strong>, and optimized the model through <strong>hyperparameter tuning</strong> using 
+                                <em>GridSearchCV</em>.
+                              </p>
+                              <p>
+                                Evaluated the model using metrics like <strong>accuracy, precision, recall</strong>, and 
+                                <strong>ROC-AUC</strong> score. Deployed results through a <strong>Streamlit dashboard</strong> 
+                                for actionable business insights.
+                              </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">XGBoost</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <img src="IBM.png" alt="IBM" />
+                        <div class="project-info">
+                            <a
+                                target="_blank"
+                            >
+                                <h3>IBM HR dashboard</h3>
+                            </a>
+                            <p>
+                                Developed an interactive HR analytics dashboard in <strong>Tableau</strong> using the IBM HR dataset 
+                                to visualize key workforce metrics such as <strong>employee attrition, job satisfaction, performance rating,</strong> 
+                                and <strong>department-wise turnover</strong>.
+                              </p>
+                              <p>
+                                Implemented <strong>calculated fields, parameters, filters,</strong> and <strong>dynamic visuals</strong> to enable 
+                                real-time insights into employee trends and potential retention strategies.
+                              </p>
+                              <p>
+                                Designed with <em>user-centric UI</em> for HR professionals, supporting data-driven decision-making 
+                                through <strong>KPIs, bar charts, heatmaps, and trend analysis</strong>.
+                              </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Tableau</span>
+                                <span class="tech-tag">Excel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certifications Section -->
+            <section id="certifications">
+                <h1 class="section-title">Certifications & Courses</h1>
+                <div class="certifications-container">
+                    <div class="certification-card">
+                        <img
+                            src="Responsibleaipic.png"
+                            alt="Responsibleaipic"
+                        />
+                        <div class="certification-info">
+                            <h3>Responsible & Safe AI Systems</h3>
+                            <p>by NPTEL</p>
+                        </div>
+                    </div>
+
+                    <div class="certification-card">
+                        <img src="DSA.png" alt="Flutter Certificate" />
+                        <div class="certification-info">
+                            <h3>
+                                Data Structures and Algorithms Specialization
+                            </h3>
+                            <p>Udemy</p>
+                        </div>
+                    </div>
+
+                    <div class="certification-card">
+                        <img src="tatapic.png" alt="Flutter Certificate" />
+                        <div class="certification-info">
+                            <h3>Data Visualisation:Empowering Business with	Effective insights</h3>
+                            <p>TATA</p>
+                        </div>
+                    </div>
+
+                    <div class="certification-card">
+                        <img src="deloittepic.png" alt="Flutter Certificate" />
+                        <div class="certification-info">
+                            <h3>Data Analytics Job Simulation</h3>
+                            <p>Deloitte.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience">
+                <h1 class="section-title">Summer TRAINING </h1>
+
+                <div class="experience-item">
+                    <h3>Self Learning</h3>
+                    <div class="company">
+                        Complete Machine Learning & Data Science | GeeksforGeeks 
+                    </div>
+                    <div class="period">June 2024 – July 2024</div>
+                    <div class="experience-content">
+                        <div class="experience-description">
+                            <ul>
+                                <li>Gained practical experience with essential <strong>machine learning algorithms</strong> such as Linear Regression, Logistic Regression, Decision Trees, Random Forest, KNN, SVM, and K-Means Clustering.</li>
+                                <li>Learned key concepts in <strong>data preprocessing</strong> including handling missing values, feature scaling, encoding categorical variables, and feature selection.</li>
+                                <li>Performed <strong>exploratory data analysis (EDA)</strong> to uncover patterns, trends, and correlations in real-world datasets using libraries like <code>pandas</code>, <code>matplotlib</code>, and <code>seaborn</code>.</li>
+                                <li>Mastered both <strong>supervised</strong> (classification, regression) and <strong>unsupervised learning</strong> (clustering, dimensionality reduction).</li>
+                                <li>Evaluated model performance using metrics such as <strong>accuracy, precision, recall, F1-score,</strong> and <strong>confusion matrix</strong>.</li>
+                                <li>Worked on multiple <strong>hands-on projects</strong> including customer churn prediction, sales forecasting, and pattern detection using real-time data.</li>
+                                <li>Utilized <strong>scikit-learn</strong> and <strong>NumPy</strong> for model building and optimization, along with <strong>Jupyter Notebook</strong> for presenting clean, interactive reports.</li>
+                                <li>Understood the end-to-end <strong>ML workflow</strong> from data collection and cleaning to model deployment strategies.</li>
+                              </ul>
+                        </div>
+                        <div class="experience-image">
+                            <img src="gfg11.png" alt="Optmyzr" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Competitions Section -->
+            <section id="competitions">
+                <h1 class="section-title">
+                    Competitions, Hackathons, & Achievements
+                </h1>
+                <div class="competitions-container">
+                    <div class="competition-card">
+                        <h3>Media Head (Oasis) | Under the Department Welfare Wing (LPU, India)</h3>
+                        <p>
+                            Handled real-time challenges by staying adaptable and focused, ensuring the event stayed on schedule 
+                            and met all objectives
+                        </p>
+                        <img src="mediahead.jpg" alt="Media Head" />
+                        <img src="Technocean.png" alt="Media Head" />
+                    </div>
+
+                    <div class="competition-card">
+                        <h3>HACK AI HACKATHON</h3>
+                        <p>
+                          Participated in <strong>HackAI Hackathon</strong> organized by <strong>Lovely Professional University (LPU)</strong> and developed an AI-driven medical imaging system to detect early-stage diseases such as <strong>cancer</strong> and <strong>tuberculosis</strong> with high accuracy.
+                        </p>
+                        <img src="hackwithai.jpg" alt="Hackathon" />
+                        <img src="hackaicertificatepic.png" alt="Hackathon" />
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+                <section id="contact">
+                <h1 class="section-title">Contact</h1>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap">
+                    <div style="flex: 1; min-width: 300px">
+                        <h3>Get In Touch</h3>
+                        <p style="margin: 15px 0">
+                            Feel free to reach out to me for collaborations, job
+                            opportunities, or just to say hello!
+                        </p>
+                        <div style="margin-bottom: 10px">
+                            <strong>Email:</strong> thakurvishwanathsingh04@gmail.com
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            <strong>Phone:</strong> +91 7995074639
+                        </div>
+                        <div>
+                            <strong>Location:</strong> Lovely Professional
+                            University, Punjab, India
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 300px">
+                        <form
+                            style="
+                                display: flex;
+                                flex-direction: column;
+                                gap: 10px;
+                            "
+                        >
+                            <input
+                                type="text"
+                                placeholder="Your Name"
+                                style="
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                    border: 1px solid #ddd;
+                                "
+                            />
+                            <input
+                                type="email"
+                                placeholder="Your Email"
+                                style="
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                    border: 1px solid #ddd;
+                                "
+                            />
+                            <textarea
+                                placeholder="Your Message"
+                                rows="5"
+                                style="
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                    border: 1px solid #ddd;
+                                "
+                            ></textarea>
+                            <button
+                                type="submit"
+                                style="
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                    background-color: #3498db;
+                                    color: white;
+                                    border: none;
+                                    cursor: pointer;
+                                "
+                            >
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p>&copy; 2025 Thakur Vishwanath Singh. All Rights Reserved.</p>
+            </footer>
+        </div>
+
+        <script>
+            // Toggle sidebar
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+            const toggleBtn = document.getElementById("toggleBtn");
+
+            toggleBtn.addEventListener("click", () => {
+                sidebar.classList.toggle("collapsed");
+                mainContent.classList.toggle("expanded");
+
+                // Change icon based on sidebar state
+                if (sidebar.classList.contains("collapsed")) {
+                    toggleBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                } else {
+                    toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll(".nav-links a").forEach((anchor) => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute("href");
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: "smooth",
+                        });
+
+                        // On mobile, collapse the sidebar after clicking a link
+                        if (window.innerWidth <= 768) {
+                            sidebar.classList.add("collapsed");
+                            mainContent.classList.add("expanded");
+                            toggleBtn.innerHTML =
+                                '<i class="fas fa-expand"></i>';
+                        }
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
